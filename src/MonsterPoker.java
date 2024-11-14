@@ -27,6 +27,7 @@ public class MonsterPoker {
   double cpuDPmag = 1;
   double cpuAP = 0;
   double cpuDP = 0;
+  double damage = 0;
   // 役判定用フラグ
   // 役判定
   // 5が1つある：ファイブ->five = true
@@ -380,13 +381,9 @@ public class MonsterPoker {
     System.out.print("の攻撃！");
     Thread.sleep(1000);
     System.out.println("CPUのモンスターによるガード！");
-    if (this.cpuDP >= this.playerAP) {
-      System.out.println("CPUはノーダメージ！");
-    } else {
-      double damage = this.playerAP - this.cpuDP;
-      System.out.printf("CPUは%.0fのダメージを受けた！\n", damage);
-      this.cpuHP = this.cpuHP - damage;
-    }
+    damage = (this.cpuDP >= this.playerAP) ? 0 : this.playerAP - this.cpuDP;
+    System.out.println((damage == 0) ? "CPUはノーダメージ！" : String.format("CPUは%.0fのダメージを受けた！", damage));
+    this.cpuHP -= damage;
 
     // CPUの攻撃
     System.out.print("CPUのDrawした");
@@ -399,13 +396,9 @@ public class MonsterPoker {
     System.out.print("の攻撃！");
     Thread.sleep(1000);
     System.out.println("Playerのモンスターによるガード！");
-    if (this.playerDP >= this.cpuAP) {
-      System.out.println("Playerはノーダメージ！");
-    } else {
-      double damage = this.cpuAP - this.playerDP;
-      System.out.printf("Playerは%.0fのダメージを受けた！\n", damage);
-      this.playerHP = this.playerHP - damage;
-    }
+    damage = (this.playerDP >= this.cpuAP) ? 0 : this.cpuAP - this.playerDP;
+    System.out.println((damage == 0) ? "Playerはノーダメージ！" : String.format("Playerは%.0fのダメージを受けた！", damage));
+    this.playerHP -= damage;
 
     System.out.println("PlayerのHPは" + this.playerHP);
     System.out.println("CPUのHPは" + this.cpuHP);
