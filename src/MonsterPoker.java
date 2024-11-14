@@ -43,6 +43,12 @@ public class MonsterPoker {
   int pair = 0; // pair数を保持する
   int one = 0;// 1枚だけのカードの枚数
 
+  public void drawCard(int Deck[]){
+    for (int i = 0; i < Deck.length; i++) {
+      Deck[i] = card.nextInt(5);
+    }
+  }
+
   public void displayplayerDeck(){
     System.out.print("[Player]");
     for (int i = 0; i < playerDeck.length; i++) {
@@ -86,18 +92,13 @@ public class MonsterPoker {
    * @throws InterruptedException
    */
   public void drawPhase(Scanner scanner) throws InterruptedException {
-    // 初期Draw
     System.out.println("PlayerのDraw！");
-    for (int i = 0; i < playerDeck.length; i++) {
-      this.playerDeck[i] = card.nextInt(5);
-    }
+    drawCard(playerDeck);
     displayplayerDeck();
     exchangePlayer(scanner);
 
     System.out.println("CPUのDraw！");
-    for (int i = 0; i < cpuDeck.length; i++) {
-      this.cpuDeck[i] = card.nextInt(5);
-    }
+    drawCard(cpuDeck);
     displaycpuDeck();
 
     // 交換するカードの決定
