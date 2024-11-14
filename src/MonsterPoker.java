@@ -59,6 +59,27 @@ public class MonsterPoker {
     System.out.println();
   }
 
+  public void exchangeCard(String exchange){
+    for (int i = 0; i < exchange.length(); i++) {
+      this.playerDeck[Character.getNumericValue(exchange.charAt(i)) - 1] = card.nextInt(5);
+    }
+  }
+
+  public void exchangePlayer(Scanner scanner){
+    System.out.println("カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
+        String exchange = scanner.nextLine();
+        if (exchange.charAt(0) != '0') {
+          exchangeCard(exchange);
+          displayplayerDeck();
+          System.out.println("もう一度カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
+          exchange = scanner.nextLine();
+          if (exchange.charAt(0) != '0') {
+            exchangeCard(exchange);
+            displayplayerDeck();
+          }
+        }
+  }
+
   /**
    * 5枚のモンスターカードをプレイヤー/CPUが順に引く
    *
@@ -71,24 +92,7 @@ public class MonsterPoker {
       this.playerDeck[i] = card.nextInt(5);
     }
     displayplayerDeck();
-
-    // カードの交換
-    System.out.println("カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
-    String exchange = scanner.nextLine();
-    if (exchange.charAt(0) != '0') {
-      for (int i = 0; i < exchange.length(); i++) {
-        this.playerDeck[Character.getNumericValue(exchange.charAt(i)) - 1] = card.nextInt(5);
-      }
-      displayplayerDeck();
-      System.out.println("もう一度カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
-      exchange = scanner.nextLine();
-      if (exchange.charAt(0) != '0') {
-        for (int i = 0; i < exchange.length(); i++) {
-          this.playerDeck[Character.getNumericValue(exchange.charAt(i)) - 1] = card.nextInt(5);
-        }
-        displayplayerDeck();
-      }
-    }
+    exchangePlayer(scanner);
 
     System.out.println("CPUのDraw！");
     for (int i = 0; i < cpuDeck.length; i++) {
