@@ -112,6 +112,19 @@ public class MonsterPoker {
     }
   }
 
+  public void displayExchangeCard(){
+    this.playerExchangeCards = "";
+    for (int i = 0; i < cpuExchangeCards.length; i++) {
+      if (this.cpuExchangeCards[i] == 1) {
+        this.playerExchangeCards = this.playerExchangeCards + (i + 1);
+      }
+    }
+    if (this.playerExchangeCards.length() == 0) {
+      this.playerExchangeCards = "0";
+    }
+    System.out.println(this.playerExchangeCards);
+  }
+
   /**
    * 5枚のモンスターカードをプレイヤー/CPUが順に引く
    *
@@ -128,18 +141,7 @@ public class MonsterPoker {
     displaycpuDeck();
 
     decideExchangeCpu();
-
-    // 交換するカード番号の表示
-    this.playerExchangeCards = "";
-    for (int i = 0; i < cpuExchangeCards.length; i++) {
-      if (this.cpuExchangeCards[i] == 1) {
-        this.playerExchangeCards = this.playerExchangeCards + (i + 1);
-      }
-    }
-    if (this.playerExchangeCards.length() == 0) {
-      this.playerExchangeCards = "0";
-    }
-    System.out.println(this.playerExchangeCards);
+    displayExchangeCard();
 
     // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
@@ -150,18 +152,7 @@ public class MonsterPoker {
     }
 
     decideExchangeCpu();
-
-    // 交換するカード番号の表示
-    this.playerExchangeCards = "";
-    for (int i = 0; i < cpuExchangeCards.length; i++) {
-      if (this.cpuExchangeCards[i] == 1) {
-        this.playerExchangeCards = this.playerExchangeCards + (i + 1);
-      }
-    }
-    if (this.playerExchangeCards.length() == 0) {
-      this.playerExchangeCards = "0";
-    }
-    System.out.println(this.playerExchangeCards);
+    displayExchangeCard();
 
     // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
