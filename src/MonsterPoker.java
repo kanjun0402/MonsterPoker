@@ -43,9 +43,9 @@ public class MonsterPoker {
   int pair = 0; // pair数を保持する
   int one = 0;// 1枚だけのカードの枚数
 
-  public void drawCard(int Deck[]){
-    for (int i = 0; i < Deck.length; i++) {
-      Deck[i] = card.nextInt(5);
+  public void drawCard(int deck[]){
+    for (int i = 0; i < deck.length; i++) {
+      deck[i] = card.nextInt(5);
     }
   }
 
@@ -65,9 +65,9 @@ public class MonsterPoker {
     System.out.println();
   }
 
-  public void exchangeCard(String exchange){
+  public void exchangeCard(String exchange, int deck[]){
     for (int i = 0; i < exchange.length(); i++) {
-      this.playerDeck[Character.getNumericValue(exchange.charAt(i)) - 1] = card.nextInt(5);
+      deck[Character.getNumericValue(exchange.charAt(i)) - 1] = card.nextInt(5);
     }
   }
 
@@ -75,12 +75,12 @@ public class MonsterPoker {
     System.out.println("カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
         String exchange = scanner.nextLine();
         if (exchange.charAt(0) != '0') {
-          exchangeCard(exchange);
+          exchangeCard(exchange, playerDeck);
           displayplayerDeck();
           System.out.println("もう一度カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
           exchange = scanner.nextLine();
           if (exchange.charAt(0) != '0') {
-            exchangeCard(exchange);
+            exchangeCard(exchange, playerDeck);
             displayplayerDeck();
           }
         }
@@ -145,9 +145,10 @@ public class MonsterPoker {
 
     // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
-      for (int i = 0; i < playerExchangeCards.length(); i++) {
-        this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
-      }
+      // for (int i = 0; i < playerExchangeCards.length(); i++) {
+      //   this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
+      // }
+      exchangeCard(playerExchangeCards, cpuDeck);
       displaycpuDeck();
     }
 
@@ -156,9 +157,10 @@ public class MonsterPoker {
 
     // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
-      for (int i = 0; i < playerExchangeCards.length(); i++) {
-        this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
-      }
+      // for (int i = 0; i < playerExchangeCards.length(); i++) {
+      //   this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
+      // }
+      exchangeCard(playerExchangeCards, cpuDeck);
       displaycpuDeck();
     }
   }
