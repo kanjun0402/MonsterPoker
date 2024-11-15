@@ -126,111 +126,6 @@ public class MonsterPoker {
   }
 
   public void judgePlayerYaku()throws InterruptedException{
-    System.out.println("Playerの役は・・");
-    this.playerAPmag = 1;
-    this.playerDPmag = 1;
-    if (one == 5) {
-      System.out.println("スペシャルファイブ！AP/DPは両方10倍！");
-      this.playerAPmag = 10;
-      this.playerDPmag = 10;
-    } else if (five == true) {
-      System.out.println("ファイブ！AP/DPは両方5倍！");
-      this.playerAPmag = 5;
-      this.playerDPmag = 5;
-    } else if (four == true) {
-      System.out.println("フォー！AP/DPは両方4倍！");
-      this.playerAPmag = 3;
-      this.playerDPmag = 3;
-    } else if (three == true && pair == 1) {
-      System.out.println("フルハウス！AP/DPは両方3倍");
-      this.playerAPmag = 3;
-      this.playerDPmag = 3;
-    } else if (three == true) {
-      System.out.println("スリーカード！AP/DPはそれぞれ3倍と2倍");
-      this.playerAPmag = 3;
-      this.playerDPmag = 2;
-    } else if (pair == 2) {
-      System.out.println("ツーペア！AP/DPは両方2倍");
-      this.playerAPmag = 2;
-      this.playerDPmag = 2;
-    } else if (pair == 1) {
-      System.out.println("ワンペア！AP/DPは両方1/2倍");
-      this.playerAPmag = 0.5;
-      this.playerDPmag = 0.5;
-    }
-    Thread.sleep(1000);
-  }
-
-  public void judgeCpuYaku()throws InterruptedException{
-    System.out.println("CPUの役は・・");
-    this.cpuAPmag = 1;// 初期化
-    this.cpuDPmag = 1;
-    if (one == 5) {
-      System.out.println("スペシャルファイブ！AP/DPは両方10倍！");
-      this.cpuAPmag = 10;
-      this.cpuDPmag = 10;
-    } else if (five == true) {
-      System.out.println("ファイブ！AP/DPは両方5倍！");
-      this.cpuAPmag = 5;
-      this.cpuDPmag = 5;
-    } else if (four == true) {
-      System.out.println("フォー！AP/DPは両方4倍！");
-      this.cpuAPmag = 3;
-      this.cpuDPmag = 3;
-    } else if (three == true && pair == 1) {
-      System.out.println("フルハウス！AP/DPは両方3倍");
-      this.cpuAPmag = 3;
-      this.cpuDPmag = 3;
-    } else if (three == true) {
-      System.out.println("スリーカード！AP/DPはそれぞれ3倍と2倍");
-      this.cpuAPmag = 3;
-      this.cpuDPmag = 2;
-    } else if (pair == 2) {
-      System.out.println("ツーペア！AP/DPは両方2倍");
-      this.cpuAPmag = 2;
-      this.cpuDPmag = 2;
-    } else if (pair == 1) {
-      System.out.println("ワンペア！AP/DPは両方1/2倍");
-      this.cpuAPmag = 0.5;
-      this.cpuDPmag = 0.5;
-    }
-    Thread.sleep(1000);
-  }
-
-  /**
-   * 5枚のモンスターカードをプレイヤー/CPUが順に引く
-   *
-   * @throws InterruptedException
-   */
-  public void drawPhase(Scanner scanner) throws InterruptedException {
-    System.out.println("PlayerのDraw！");
-    drawCard(playerDeck);
-    displayplayerDeck();
-    exchangePlayer(scanner);
-
-    System.out.println("CPUのDraw！");
-    drawCard(cpuDeck);
-    displaycpuDeck();
-
-    decideExchangeCpu();
-    displayExchangeCard();
-
-    if (playerExchangeCards.charAt(0) != '0') {
-      exchangeCard(playerExchangeCards, cpuDeck);
-      displaycpuDeck();
-    }
-
-    decideExchangeCpu();
-    displayExchangeCard();
-
-    if (playerExchangeCards.charAt(0) != '0') {
-      exchangeCard(playerExchangeCards, cpuDeck);
-      displaycpuDeck();
-    }
-  }
-
-  public void battlePhase() throws InterruptedException {
-    // Playerの役の判定
     // 役判定用配列の初期化
     for (int i = 0; i < playerYaku.length; i++) {
       this.playerYaku[i] = 0;
@@ -267,20 +162,42 @@ public class MonsterPoker {
         five = true;
       }
     }
-    judgePlayerYaku();
-    
-
-
-    // APとDPの計算
-    for (int i = 0; i < playerYaku.length; i++) {
-      if (playerYaku[i] >= 1) {
-        this.playerAP = this.playerAP + this.monsterAP[i] * playerYaku[i];
-        this.playerDP = this.playerDP + this.monsterDP[i] * playerYaku[i];
-      }
+    System.out.println("Playerの役は・・");
+    this.playerAPmag = 1;
+    this.playerDPmag = 1;
+    if (one == 5) {
+      System.out.println("スペシャルファイブ！AP/DPは両方10倍！");
+      this.playerAPmag = 10;
+      this.playerDPmag = 10;
+    } else if (five == true) {
+      System.out.println("ファイブ！AP/DPは両方5倍！");
+      this.playerAPmag = 5;
+      this.playerDPmag = 5;
+    } else if (four == true) {
+      System.out.println("フォー！AP/DPは両方4倍！");
+      this.playerAPmag = 3;
+      this.playerDPmag = 3;
+    } else if (three == true && pair == 1) {
+      System.out.println("フルハウス！AP/DPは両方3倍");
+      this.playerAPmag = 3;
+      this.playerDPmag = 3;
+    } else if (three == true) {
+      System.out.println("スリーカード！AP/DPはそれぞれ3倍と2倍");
+      this.playerAPmag = 3;
+      this.playerDPmag = 2;
+    } else if (pair == 2) {
+      System.out.println("ツーペア！AP/DPは両方2倍");
+      this.playerAPmag = 2;
+      this.playerDPmag = 2;
+    } else if (pair == 1) {
+      System.out.println("ワンペア！AP/DPは両方1/2倍");
+      this.playerAPmag = 0.5;
+      this.playerDPmag = 0.5;
     }
-    this.playerAP = this.playerAP * this.playerAPmag;
-    this.playerDP = this.playerDP * this.playerDPmag;
+    Thread.sleep(1000);
+  }
 
+  public void judgeCpuYaku()throws InterruptedException{
     // CPUの役の判定
     // 役判定用配列の初期化
     for (int i = 0; i < cpuYaku.length; i++) {
@@ -318,9 +235,54 @@ public class MonsterPoker {
         five = true;
       }
     }
-    judgeCpuYaku();
-    
+    System.out.println("CPUの役は・・");
+    this.cpuAPmag = 1;// 初期化
+    this.cpuDPmag = 1;
+    if (one == 5) {
+      System.out.println("スペシャルファイブ！AP/DPは両方10倍！");
+      this.cpuAPmag = 10;
+      this.cpuDPmag = 10;
+    } else if (five == true) {
+      System.out.println("ファイブ！AP/DPは両方5倍！");
+      this.cpuAPmag = 5;
+      this.cpuDPmag = 5;
+    } else if (four == true) {
+      System.out.println("フォー！AP/DPは両方4倍！");
+      this.cpuAPmag = 3;
+      this.cpuDPmag = 3;
+    } else if (three == true && pair == 1) {
+      System.out.println("フルハウス！AP/DPは両方3倍");
+      this.cpuAPmag = 3;
+      this.cpuDPmag = 3;
+    } else if (three == true) {
+      System.out.println("スリーカード！AP/DPはそれぞれ3倍と2倍");
+      this.cpuAPmag = 3;
+      this.cpuDPmag = 2;
+    } else if (pair == 2) {
+      System.out.println("ツーペア！AP/DPは両方2倍");
+      this.cpuAPmag = 2;
+      this.cpuDPmag = 2;
+    } else if (pair == 1) {
+      System.out.println("ワンペア！AP/DPは両方1/2倍");
+      this.cpuAPmag = 0.5;
+      this.cpuDPmag = 0.5;
+    }
+    Thread.sleep(1000);
+  }
 
+  public void computePlayerAPDP(){
+    // APとDPの計算
+    for (int i = 0; i < playerYaku.length; i++) {
+      if (playerYaku[i] >= 1) {
+        this.playerAP = this.playerAP + this.monsterAP[i] * playerYaku[i];
+        this.playerDP = this.playerDP + this.monsterDP[i] * playerYaku[i];
+      }
+    }
+    this.playerAP = this.playerAP * this.playerAPmag;
+    this.playerDP = this.playerDP * this.playerDPmag;
+  }
+
+  public void computeCpuAPDP(){
     // APとDPの計算
     for (int i = 0; i < cpuYaku.length; i++) {
       if (cpuYaku[i] >= 1) {
@@ -330,6 +292,46 @@ public class MonsterPoker {
     }
     this.cpuAP = this.cpuAP * this.cpuAPmag;
     this.cpuDP = this.cpuDP * this.cpuDPmag;
+  }
+
+  /**
+   * 5枚のモンスターカードをプレイヤー/CPUが順に引く
+   *
+   * @throws InterruptedException
+   */
+  public void drawPhase(Scanner scanner) throws InterruptedException {
+    System.out.println("PlayerのDraw！");
+    drawCard(playerDeck);
+    displayplayerDeck();
+    exchangePlayer(scanner);
+
+    System.out.println("CPUのDraw！");
+    drawCard(cpuDeck);
+    displaycpuDeck();
+
+    decideExchangeCpu();
+    displayExchangeCard();
+
+    if (playerExchangeCards.charAt(0) != '0') {
+      exchangeCard(playerExchangeCards, cpuDeck);
+      displaycpuDeck();
+    }
+
+    decideExchangeCpu();
+    displayExchangeCard();
+
+    if (playerExchangeCards.charAt(0) != '0') {
+      exchangeCard(playerExchangeCards, cpuDeck);
+      displaycpuDeck();
+    }
+  }
+
+  public void battlePhase() throws InterruptedException {
+    judgePlayerYaku();
+    computePlayerAPDP();
+
+    judgeCpuYaku();
+    computeCpuAPDP();
 
     // バトル
     System.out.println("バトル！！");
