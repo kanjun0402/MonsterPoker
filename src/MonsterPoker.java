@@ -86,22 +86,7 @@ public class MonsterPoker {
         }
   }
 
-  /**
-   * 5枚のモンスターカードをプレイヤー/CPUが順に引く
-   *
-   * @throws InterruptedException
-   */
-  public void drawPhase(Scanner scanner) throws InterruptedException {
-    System.out.println("PlayerのDraw！");
-    drawCard(playerDeck);
-    displayplayerDeck();
-    exchangePlayer(scanner);
-
-    System.out.println("CPUのDraw！");
-    drawCard(cpuDeck);
-    displaycpuDeck();
-
-    // 交換するカードの決定
+  public void decideExchangeCpu()throws InterruptedException{
     System.out.println("CPUが交換するカードを考えています・・・・・・");
     Thread.sleep(2000);
     // cpuDeckを走査して，重複するカード以外のカードをランダムに交換する
@@ -125,6 +110,24 @@ public class MonsterPoker {
         }
       }
     }
+  }
+
+  /**
+   * 5枚のモンスターカードをプレイヤー/CPUが順に引く
+   *
+   * @throws InterruptedException
+   */
+  public void drawPhase(Scanner scanner) throws InterruptedException {
+    System.out.println("PlayerのDraw！");
+    drawCard(playerDeck);
+    displayplayerDeck();
+    exchangePlayer(scanner);
+
+    System.out.println("CPUのDraw！");
+    drawCard(cpuDeck);
+    displaycpuDeck();
+
+    decideExchangeCpu();
 
     // 交換するカード番号の表示
     this.playerExchangeCards = "";
@@ -146,30 +149,7 @@ public class MonsterPoker {
       displaycpuDeck();
     }
 
-    // 交換するカードの決定
-    System.out.println("CPUが交換するカードを考えています・・・・・・");
-    Thread.sleep(2000);
-    // cpuDeckを走査して，重複するカード以外のカードをランダムに交換する
-    // 0,1,0,2,3 といったcpuDeckの場合，2枚目，4枚目，5枚目のカードをそれぞれ交換するかどうか決定し，例えば24といった形で決定する
-    // 何番目のカードを交換するかを0,1で持つ配列の初期化
-    // 例えばcpuExchangeCards[]が{0,1,1,0,0}の場合は2,3枚目を交換の候補にする
-    for (int i = 0; i < this.cpuExchangeCards.length; i++) {
-      this.cpuExchangeCards[i] = -1;
-    }
-    for (int i = 0; i < this.cpuDeck.length; i++) {
-      if (this.cpuExchangeCards[i] == -1) {
-        for (int j = i + 1; j < this.cpuDeck.length; j++) {
-          if (this.cpuDeck[i] == this.cpuDeck[j]) {
-            this.cpuExchangeCards[i] = 0;
-            this.cpuExchangeCards[j] = 0;
-          }
-        }
-        if (this.cpuExchangeCards[i] != 0) {
-          this.cpuExchangeCards[i] = this.card.nextInt(2);// 交換するかどうかをランダムに最終決定する
-          // this.cpuExchangeCards[i] = 1;
-        }
-      }
-    }
+    decideExchangeCpu();
 
     // 交換するカード番号の表示
     this.playerExchangeCards = "";
