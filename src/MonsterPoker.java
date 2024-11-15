@@ -22,11 +22,11 @@ public class MonsterPoker {
       System.out.println(this.name+"のDraw！");
       this.drawCard();
       this.displayDeck();
-      if(this.name=="Player"){
-        this.exchange(scanner);
-      }else{
-        cpuTurn();
+      if (this.name.equals("Player")) {
+          this.exchange(scanner);
+          return;
       }
+      cpuTurn();
     }
     public void cpuTurn()throws InterruptedException{
       this.decideExchangeCpu();
