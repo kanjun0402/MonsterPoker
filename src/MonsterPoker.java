@@ -29,18 +29,22 @@ public class MonsterPoker {
       cpuTurn();
     }
     public void cpuTurn()throws InterruptedException{
-      this.decideExchangeCpu();
-      this.displayExchangeCard();
+      decideCpu();
       if (playerExchangeCards.charAt(0) != '0') {
-        this.exchangeCard(this.playerExchangeCards);
-        this.displayDeck();
-        this.decideExchangeCpu();
-        this.displayExchangeCard();
+        exchangeCpu();
+        decideCpu();
         if (playerExchangeCards.charAt(0) != '0') {
-          this.exchangeCard(this.playerExchangeCards);
-          this.displayDeck();
+          exchangeCpu();
         }
       }        
+    }
+    public void decideCpu()throws InterruptedException{
+      this.decideExchangeCpu();
+      this.displayExchangeCard();
+    }
+    public void exchangeCpu(){
+        this.exchangeCard(this.playerExchangeCards);
+        this.displayDeck();
     }
     public void drawCard(){
       IntStream.range(0, this.deck.length)
@@ -63,15 +67,17 @@ public class MonsterPoker {
       System.out.println("カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
       String exchange = scanner.nextLine();
       if (exchange.charAt(0) != '0') {
-        this.exchangeCard(exchange);
-        this.displayDeck();
+        this.exchangeAndDisplay(exchange);
         System.out.println("もう一度カードを交換する場合は1から5の数字（左から数えた位置を表す）を続けて入力してください．交換しない場合は0と入力してください");
         exchange = scanner.nextLine();
         if (exchange.charAt(0) != '0') {
-          this.exchangeCard(exchange);
-          this.displayDeck();
+          this.exchangeAndDisplay(exchange);
         }
       }
+    }
+    public void exchangeAndDisplay(String exchange){
+        this.exchangeCard(exchange);
+        this.displayDeck();
     }
     public void displayExchangeCard(){
       this.playerExchangeCards = "";
