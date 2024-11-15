@@ -21,11 +21,11 @@ public class Main {
     while (true) {
       mp.drawPhase(scanner);
       mp.battlePhase();
-      if (mp.playerHP <= 0 && mp.cpuHP <= 0) {
+      if (mp.player.hp <= 0 && mp.cpu.hp <= 0) {
         System.out.println("引き分け！");
-      } else if (mp.playerHP <= 0) {
+      } else if (mp.player.hp <= 0) {
         System.out.println("CPU Win!");
-      } else if (mp.cpuHP <= 0) {
+      } else if (mp.cpu.hp <= 0) {
         System.out.println("Player Win!");
       } else {
         Thread.sleep(2000);
