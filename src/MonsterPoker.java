@@ -143,11 +143,7 @@ public class MonsterPoker {
     decideExchangeCpu();
     displayExchangeCard();
 
-    // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
-      // for (int i = 0; i < playerExchangeCards.length(); i++) {
-      //   this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
-      // }
       exchangeCard(playerExchangeCards, cpuDeck);
       displaycpuDeck();
     }
@@ -155,11 +151,7 @@ public class MonsterPoker {
     decideExchangeCpu();
     displayExchangeCard();
 
-    // カードの交換
     if (playerExchangeCards.charAt(0) != '0') {
-      // for (int i = 0; i < playerExchangeCards.length(); i++) {
-      //   this.cpuDeck[Character.getNumericValue(playerExchangeCards.charAt(i)) - 1] = card.nextInt(5);
-      // }
       exchangeCard(playerExchangeCards, cpuDeck);
       displaycpuDeck();
     }
