@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class MonsterPoker {
 
   Random card = new Random();
-
   double playerHP = 1000; //PlayerのHP
   double cpuHP = 1000; //cpuのHP
   int playerDeck[] = new int[5]; // 0~4までの数字（モンスターID）が入る
@@ -294,12 +293,48 @@ public class MonsterPoker {
     this.cpuDP = this.cpuDP * this.cpuDPmag;
   }
 
+  public void attackPlayer()throws InterruptedException{
+// Playerの攻撃
+    System.out.print("PlayerのDrawした");
+    for (int i = 0; i < playerYaku.length; i++) {
+      if (playerYaku[i] >= 1) {
+        System.out.print(this.monsters[i] + " ");
+        Thread.sleep(500);
+      }
+    }
+    System.out.print("の攻撃！");
+    Thread.sleep(1000);
+    System.out.println("CPUのモンスターによるガード！");
+    damage = (this.cpuDP >= this.playerAP) ? 0 : this.playerAP - this.cpuDP;
+    System.out.println((damage == 0) ? "CPUはノーダメージ！" : String.format("CPUは%.0fのダメージを受けた！", damage));
+    this.cpuHP -= damage;
+  }
+
+  public void attackCpu()throws InterruptedException{
+    System.out.print("CPUのDrawした");
+    for (int i = 0; i < cpuYaku.length; i++) {
+      if (cpuYaku[i] >= 1) {
+        System.out.print(this.monsters[i] + " ");
+        Thread.sleep(500);
+      }
+    }
+    System.out.print("の攻撃！");
+    Thread.sleep(1000);
+    System.out.println("Playerのモンスターによるガード！");
+    damage = (this.playerDP >= this.cpuAP) ? 0 : this.cpuAP - this.playerDP;
+    System.out.println((damage == 0) ? "Playerはノーダメージ！" : String.format("Playerは%.0fのダメージを受けた！", damage));
+    this.playerHP -= damage;
+  }
+
   /**
    * 5枚のモンスターカードをプレイヤー/CPUが順に引く
    *
    * @throws InterruptedException
    */
   public void drawPhase(Scanner scanner) throws InterruptedException {
+
+
+
     System.out.println("PlayerのDraw！");
     drawCard(playerDeck);
     displayplayerDeck();
@@ -335,35 +370,8 @@ public class MonsterPoker {
 
     // バトル
     System.out.println("バトル！！");
-    // Playerの攻撃
-    System.out.print("PlayerのDrawした");
-    for (int i = 0; i < playerYaku.length; i++) {
-      if (playerYaku[i] >= 1) {
-        System.out.print(this.monsters[i] + " ");
-        Thread.sleep(500);
-      }
-    }
-    System.out.print("の攻撃！");
-    Thread.sleep(1000);
-    System.out.println("CPUのモンスターによるガード！");
-    damage = (this.cpuDP >= this.playerAP) ? 0 : this.playerAP - this.cpuDP;
-    System.out.println((damage == 0) ? "CPUはノーダメージ！" : String.format("CPUは%.0fのダメージを受けた！", damage));
-    this.cpuHP -= damage;
-
-    // CPUの攻撃
-    System.out.print("CPUのDrawした");
-    for (int i = 0; i < cpuYaku.length; i++) {
-      if (cpuYaku[i] >= 1) {
-        System.out.print(this.monsters[i] + " ");
-        Thread.sleep(500);
-      }
-    }
-    System.out.print("の攻撃！");
-    Thread.sleep(1000);
-    System.out.println("Playerのモンスターによるガード！");
-    damage = (this.playerDP >= this.cpuAP) ? 0 : this.cpuAP - this.playerDP;
-    System.out.println((damage == 0) ? "Playerはノーダメージ！" : String.format("Playerは%.0fのダメージを受けた！", damage));
-    this.playerHP -= damage;
+    attackPlayer();
+    attackCpu();
 
     System.out.println("PlayerのHPは" + this.playerHP);
     System.out.println("CPUのHPは" + this.cpuHP);
